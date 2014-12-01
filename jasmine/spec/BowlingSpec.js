@@ -44,16 +44,11 @@ describe("Bowling Kata", function(){
 	});
 	
 	it("if first ball in frame is less 10, 2nd ball of the frame should not exceed the remaining pins. First frame of next game is added to previous", function(){ //spare
-		var firstBowl = 8;
-		var secondBowl = 2;
-		var thirdBowl = 3;
 		
-		
-		bowlingGame.bowl(firstBowl);
-		bowlingGame.bowl(secondBowl);
-		bowlingGame.bowl(thirdBowl);
-
-		expect(bowlingGame.frames[0].getScore()).toBeEqual(13);
+		bowlingGame.bowl(8);
+		bowlingGame.bowl(2);
+		bowlingGame.bowl(3);
+		expect(bowlingGame.games[0].getScore()).toBeEqual(13);
 
 	});
 })

@@ -41,6 +41,12 @@ BowlingGame.prototype.bowl = function(input){
 	} else {
 		if(this.currentGame.firstBall == undefined){ //first ball
 			this.currentGame.firstBall = input;
+			if(games.length > 1){
+				var previousGame = games[games.length-1];//spare previous game
+				if((previousGame.firstBall + previousGame.secondBall) == 10){ 
+					games[games.length-1].bonus = input;
+				}
+			}
 		} else { //second ball
 			this.currentGame.secondBall = input;			
 			if(this.currentGame.firstBall == 10){ //strike

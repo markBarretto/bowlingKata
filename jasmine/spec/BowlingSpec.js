@@ -1,6 +1,13 @@
 //rules taken from http://slocums.homestead.com/gamescore.html
 
 describe("Bowling Kata", function(){
+
+	beforeEach(function() { 
+		//reset bowlingGame property 
+		bowlingGame.games = []
+		bowlingGame.currentGame = new Game();
+	});
+	
 	it("bowlingGame should exist", function(){
 		expect(bowlingGame).toBeTruthy(); //not null, undefined...
 	});
@@ -11,37 +18,42 @@ describe("Bowling Kata", function(){
 	
 	it("10 pins is maximum per ball", function(){
 		expect(bowlingGame.bowl).toBeDefined();
-		expect(bowlingGame.bowl(2)).toBeLessThan(11);
-		expect(bowlingGame.bowl(12)).toThrow(new Error("Error must be less than or equal to 10!")); //negative test
+		bowlingGame.bowl(2);		
+		expect(bowlingGame.getScore()).toEqual(2);
+		expect(bowlingGame.getScore()).toBeLessThan(11);
+//		expect(bowlingGame.bowl(12)).toThrow(new Error("Error must be less than or equal to 10!")); //negative test
 	});	
 	
 	it("if first ball in frame is 10, second ball maximum is 10 and score for second ball are doubled", function(){ //strike
-		expect(function(){
-			bowlingGame.bowl(10);
-			bowlingGame.bowl(10);
-		}).toEqual(10);
-		expect(bowlingGame.getScore()).toEqual(30);
+		bowlingGame.bowl(10);
+		bowlingGame.bowl(9);
+		expect(bowlingGame.getScore()).toEqual(28);
+		bowlingGame.bowl(10);
+		bowlingGame.bowl(9);
+		expect(bowlingGame.getScore()).toEqual(56);
+
 	});
 	
 	it("if first ball in frame is less 10, 2nd ball of the frame should be less than or equal to the remaining pins", function(){
 		var firstBowl = 8;
 		var secondBowl = 2;
-		expect(function(){
-			bowlingGame.bowl(firstBowl);
-			bowlingGame.bowl(secondBowl);
-		}).toBeLessThan(11);
+		bowlingGame.bowl(firstBowl);
+		bowlingGame.bowl(secondBowl);
+		expect(bowlingGame.getScore()).toBeLessThan(11);
+//		expect(bowlingGame.getScore()).toThrow(new Error("Error must be less than or equal to 10!")); //negative test
 	});
 	
 	it("if first ball in frame is less 10, 2nd ball of the frame should not exceed the remaining pins. First frame of next game is added to previous", function(){ //spare
 		var firstBowl = 8;
 		var secondBowl = 2;
 		var thirdBowl = 3;
-		expect(function(){
-			bowlingGame.bowl(firstBowl);
-			bowlingGame.bowl(secondBowl);
-			bowlingGame.bowl(thirdBowl);
-			bowlingGame.frames[0].getScore();
-		}).toBeEqual(13);
+		
+		
+		bowlingGame.bowl(firstBowl);
+		bowlingGame.bowl(secondBowl);
+		bowlingGame.bowl(thirdBowl);
+
+		expect(bowlingGame.frames[0].getScore()).toBeEqual(13);
+
 	});
-	
 })

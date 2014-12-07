@@ -35,20 +35,17 @@ describe("Bowling Kata", function(){
 	});
 	
 	it("if first ball in frame is less 10, 2nd ball of the frame should be less than or equal to the remaining pins", function(){
-		var firstBowl = 8;
-		var secondBowl = 2;
-		bowlingGame.bowl(firstBowl);
-		bowlingGame.bowl(secondBowl);
+		bowlingGame.bowl(8);
+		bowlingGame.bowl(2);
 		expect(bowlingGame.getScore()).toBeLessThan(11);
 //		expect(bowlingGame.getScore()).toThrow(new Error("Error must be less than or equal to 10!")); //negative test
 	});
 	
 	it("if first ball in frame is less 10, 2nd ball of the frame should not exceed the remaining pins. First frame of next game is added to previous", function(){ //spare
-		
 		bowlingGame.bowl(8);
 		bowlingGame.bowl(2);
 		bowlingGame.bowl(3);
-		expect(bowlingGame.games[0].getScore()).toBeEqual(13);
-
+		expect(bowlingGame.getGameScore(1)).toEqual(13);
+		
 	});
 })

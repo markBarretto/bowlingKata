@@ -41,7 +41,7 @@ BowlingGame.prototype.bowl = function(input){
 	} else {
 		if(this.currentGame.firstBall == undefined){ //first ball
 			this.currentGame.firstBall = input;
-			if(games.length > 1){
+			if(games.length > 0){
 				var previousGame = games[games.length-1];//spare previous game
 				if((previousGame.firstBall + previousGame.secondBall) == 10){ 
 					games[games.length-1].bonus = input;
@@ -65,10 +65,17 @@ BowlingGame.prototype.bowl = function(input){
 				this.games[games.length-1].bonus = c.bonus;
 				this.currentGame = new Game();
 			}
-		}		
+		}
 		
 	}
 }
 
+BowlingGame.prototype.getGameScore = function(input){
+	if(this.games[input-1]){
+		return this.games[input-1].getScore();
+	} else {
+		throw new Error(input+" game does not exist");
+	}	
+}
 
 var bowlingGame = new BowlingGame();

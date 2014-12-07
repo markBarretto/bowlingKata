@@ -39,6 +39,15 @@ BowlingGame.prototype.bowl = function(input){
 	if(input > 10){
 		throw new Error("Error must be less than or equal to 10!");
 	} else {
+		console.log(this.games.length);
+	
+		
+		if(this.games.length == 10){ //10 games
+			if(this.games[9].secondBall != null){ //last ball thrown
+				throw new Error("Game had ended you scored "+ this.getScore()+ " in the previous game, play again?");
+			}
+		}
+	
 		if(this.currentGame.firstBall == undefined){ //first ball
 			this.currentGame.firstBall = input;
 			if(games.length > 0){
@@ -48,7 +57,11 @@ BowlingGame.prototype.bowl = function(input){
 				}
 			}
 		} else { //second ball
-			this.currentGame.secondBall = input;			
+			this.currentGame.secondBall = input;		
+			if(this.currentGame.firstBall != 10 && (this.currentGame.firstBall+this.currentGame.secondBall)>10){
+				throw new Error("Error must be less than or equal to 10!");
+			}
+			
 			if(this.currentGame.firstBall == 10){ //strike
 				this.currentGame.bonus = input;
 			}
@@ -66,7 +79,6 @@ BowlingGame.prototype.bowl = function(input){
 				this.currentGame = new Game();
 			}
 		}
-		
 	}
 }
 

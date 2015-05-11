@@ -2,6 +2,8 @@
 
 describe("Bowling Kata", function(){
  	beforeEach(function() {  
+		bowlingGame.bowls = [];
+		bowlingGame.totalScore = 0;
  	}); 
 
 	it("bowlingGame should exist", function(){
@@ -18,26 +20,42 @@ describe("Bowling Kata", function(){
 	});
 	
 	it("bowl should have a maximum of 20 bowls", function(){
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		bowlingGame.bowl(9);
-		
-		expect(function() {bowlingGame.bowl(10)}).toThrow(new Error("Bowl should have a maximum of 20 bowls"));
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+			bowlingGame.bowl(9);
+ 			bowlingGame.bowl(9);
+ 			expect(function(){bowlingGame.bowl(9)}).toThrow(new Error("Bowl should have a maximum of 20 bowls"));
+			console.log(bowlingGame.bowls.length);
 	});
+	
+	it("if first ball of a frame is 10 second ball score is doubled", function(){
+		bowlingGame.bowl(10);
+		bowlingGame.bowl(3);
+		expect(bowlingGame.getScore()).toEqual(16);
+	});
+	
+	it("if first two throws equal 10, third throw is doubled", function(){
+		bowlingGame.bowl(5);
+		bowlingGame.bowl(5);
+		bowlingGame.bowl(2);
+		expect(bowlingGame.getScore()).toEqual(14);
+	});
+	
 })
